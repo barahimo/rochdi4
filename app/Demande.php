@@ -15,6 +15,11 @@ class Demande extends Model
     
     // protected $fillable = [];
 
+    public function lignedemande() 
+    {
+        return $this->hasMany(Lignedemande::class);
+    }
+
     public function fournisseur() 
     {
         return $this->belongsTo(Fournisseur::class);

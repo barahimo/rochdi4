@@ -183,7 +183,7 @@ class ClientController extends Controller
         $user_id = Auth::user()->user_id;
         $client = Client::where('user_id',$user_id)->findOrFail($client->id);
         // $commandes = Commande::where([['client_id', '=', $client->id],['user_id',$user_id]])->get();
-        $commandes = Commande::where([['client_id', '=', $client->id],['user_id',$user_id]])->orderBy('id','desc')->paginate(get_limit_pagination());
+        $commandes = Commande::with('lignecommande')->where([['client_id', '=', $client->id],['user_id',$user_id]])->orderBy('id','desc')->paginate(get_limit_pagination());
         $cmd = Commande::where('client_id', '=', $client->id)->get();
         $count = $cmd->count();
         $reste = 0;

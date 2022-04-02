@@ -30,7 +30,9 @@
                 <td>{{$client->telephone}}</td>
                 <td>
                     @if(hasPermssion('show1') == 'yes') 
-                    <a href="{{ action('ClientController@show',['client'=> $client->id])}}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-info"></i></a>
+                    <a href="{{ action('ClientController@show',['client'=> $client->id])}}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-info"></i> <span class="badge badge-secondary">{{count($client->commande)}}</span>
+                    </a>
                     @endif
                     @if(hasPermssion('edit1') == 'yes') 
                     <a href="{{route('client.edit',['client'=> $client->id])}}"class="btn btn-outline-success btn-sm"><i class="fas fa-edit"></i></a>

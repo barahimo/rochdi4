@@ -15,6 +15,11 @@ class Commande extends Model
     
     // protected $fillable = ["cadre","avance","reste","solde"];
 
+    public function lignecommande() 
+    {
+        return $this->hasMany(Lignecommande::class);
+    }
+
     public function client() 
     {
         return $this->belongsTo(Client::class);

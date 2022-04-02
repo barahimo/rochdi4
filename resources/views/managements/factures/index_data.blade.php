@@ -29,6 +29,7 @@
                         @if(hasPermssion('show6') == 'yes') 
                         <a href="{{ action('FactureController@show',['facture'=> $facture])}}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-info"></i></a>
                         @endif
+                        <a class="btn btn-outline-success btn-sm" id="btnEdit" href={{ action('CommandeController@edit',['commande'=>$facture->commande->id])}}><i class="fas fa-edit"></i></a>
                         @if(hasPermssion('delete6') == 'yes') 
                         <button class="btn btn-outline-danger btn-sm remove-facture" 
                         data-id="{{ $facture->id }}" 

@@ -18,14 +18,19 @@ class Fournisseur extends Model
     // {
     //     return $this->hasMany(Commande::class);
     // }
-
+    
     protected $date = ['deleted_at'];
+    
+    public function demande() 
+    {
+        return $this->hasMany(Demande::class);
+    }
 
     public static function getFournisseurs(){
         $user_id = Auth::user()->id;
         if(Auth::user()->is_admin == 0)
             $user_id = Auth::user()->user_id;
-        $fournisseurs = Fournisseur::orderBy('id','desc')
+        $fournisseurs = Fournisseur::with('demande')->orderBy('id','desc')
             ->where('user_id',$user_id)
             ->paginate(get_limit_pagination());
         return $fournisseurs;

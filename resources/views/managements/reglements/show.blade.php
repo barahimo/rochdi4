@@ -2,6 +2,7 @@
 @section('contenu')
 <?php
     use function App\Providers\hasPermssion;
+    use function App\Providers\get_base64;
 ?>
 <!-- #########################################################" -->
 {{ Html::style(asset('css/reglementstyle.css')) }}
@@ -50,14 +51,16 @@
                                         {{-- <div class="col-8"> --}}
                                             {{-- <div class="text-right photo-gris"> --}}
                                             <div class="text-center">
-                                                @if($company && ($company->logo || $company->logo != null))
-                                                <img src="{{Storage::url($company->logo ?? null)}}"  alt="logo" style="width:100px;height:100px" class="img-fluid">
-                                                    @if($company && ($company->nom || $company->nom != null))
-                                                        <h5>{{$company->nom ?? null}}</h5>
+                                                <div id="divLogo1"  style="display: contents">
+                                                    @if($company && ($company->logo || $company->logo != null))
+                                                    <img src="{{Storage::url($company->logo ?? null)}}"  alt="logo" style="width:100px;height:100px" class="img-fluid">
+                                                    @else
+                                                    <img src="{{asset('images/image.png')}}" alt="Logo" style="width:120px">
                                                     @endif
-                                                @else
-                                                <img src="{{asset('images/image.png')}}" alt="Logo" style="width:120px">
-                                                @endif
+                                                </div>
+                                                <div id="divLogo2"  style="display: none">
+                                                    <img id="imgLogo" src=""  alt="logo" style="width:80px;height:80px" class="img-fluid">
+                                                </div>
                                             </div>
                                             {{-- </div> --}}
                                         {{-- </div> --}}
@@ -174,11 +177,31 @@
         // console.log(document.getElementById('tr1').offsetHeight);
         // console.log(document.getElementById('tr2').offsetHeight);
     }
+    function image(){
+        //BEGIN CANVAS
+        var canvas = document.createElement('canvas');
+        var img = new Image();
+        img.src = "<?php ($company && ($company->logo || $company->logo != null)) ? print ('\/storage\/'.$company->logo ?? null): print (asset('images\/image.png'));?>";
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var context = canvas.getContext('2d');
+        context.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL('image/png'); //canvas.toDataURL('image/jpeg');
+        var imgData = dataURL;
+        var base64 = "{{get_base64()}}";
+        if(imgData === 'data:,')
+        imgData = base64;
+        // doc.addImage(imgData, 'png',  10, 10, 20, 20); //doc.addImage(imgData, 'JPEG',  10, 10, 20, 20);
+        $('#divLogo1').prop('style','display : none;');
+        $('#divLogo2').prop('style','display : contents;');
+        $('#imgLogo').prop('src',imgData);
+    }
     function onprint(){
         // -------- declarartion des jsPDF and html2canvas ------------//
         window.html2canvas = html2canvas;
         window.jsPDF = window.jspdf.jsPDF;
         // -------- Change Style ------------//
+        image();
         $('#pdf').html($('#content').html());
         // dimensionTBODY();
         // $('#pdf').prop('style','height: 700px;width: 500px;margin-left: auto;margin-right: auto;');

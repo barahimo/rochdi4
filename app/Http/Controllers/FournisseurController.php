@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Commande;
 use App\Demande;
 use App\Fournisseur;
+use App\Lignedemande;
+use App\Payement;
 use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -233,7 +235,8 @@ class FournisseurController extends Controller
         $user_id = Auth::user()->user_id;
         $fournisseur = Fournisseur::where('user_id',$user_id)->findOrFail($id);
         // $demandes = Demande::where([['fournisseur_id', '=', $fournisseur->id],['user_id',$user_id]])->get();
-        $demandes = Demande::where([['fournisseur_id', '=', $fournisseur->id],['user_id',$user_id]])->orderBy('id','desc')->paginate(get_limit_pagination());
+        // $demandes = Demande::where([['fournisseur_id', '=', $fournisseur->id],['user_id',$user_id]])->orderBy('id','desc')->paginate(get_limit_pagination());
+        $demandes = Demande::with('lignedemande')->where([['fournisseur_id', '=', $fournisseur->id],['user_id',$user_id]])->orderBy('id','desc')->paginate(get_limit_pagination());
         $cmd = Demande::where('fournisseur_id', '=', $fournisseur->id)->get();
         $count = $cmd->count();
         $reste = 0;

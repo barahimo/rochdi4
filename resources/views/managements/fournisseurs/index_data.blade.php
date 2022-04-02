@@ -30,8 +30,9 @@
                 <td>{{$fournisseur->tel}}</td>
                 <td>
                     @if(hasPermssion('show1_2') == 'yes') 
-                    {{$fournisseur->demandes}}
-                    <a href="{{ action('FournisseurController@show',['fournisseur'=> $fournisseur->id])}}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-info"></i></a>
+                    <a href="{{ action('FournisseurController@show',['fournisseur'=> $fournisseur->id])}}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-info"></i> <span class="badge badge-secondary">{{count($fournisseur->demande)}}</span>
+                    </a>
                     @endif
                     @if(hasPermssion('edit1_2') == 'yes') 
                     <a href="{{route('fournisseur.edit',['fournisseur'=> $fournisseur->id])}}"class="btn btn-outline-success btn-sm"><i class="fas fa-edit"></i></a>

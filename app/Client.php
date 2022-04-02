@@ -25,7 +25,7 @@ class Client extends Model
         $user_id = Auth::user()->id;
         if(Auth::user()->is_admin == 0)
         $user_id = Auth::user()->user_id;
-        $clients = Client::orderBy('id','desc')
+        $clients = Client::with('commande')->orderBy('id','desc')
             ->where('user_id',$user_id)
             ->paginate(get_limit_pagination());
         return $clients;

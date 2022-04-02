@@ -18,7 +18,18 @@
                 if($demande->facture) $facture = $demande->facture;
                 @endphp
                 <tr>
-                    <td>{{$demande->code }}</td>
+                    <td>
+                        <a href="#"
+                        id="link{{$key}}" 
+                        data-toggle="modal" 
+                        data-target="#id{{$key}}demandeModal" 
+                        style="cursor: pointer !important;">
+                        {{$demande->code}}
+                        </a>
+                        <!-- BEGIN Modal -->
+                        @include("managements.modals.demande",['demande_id' => 'id'.$key,'demande' => $demande,'key'=>$key])
+                        <!-- END Modal -->
+                    </td>
                     <td>{{$demande->date}}</td>
                     <td>{{$facture}}</td>
                     <td>{{number_format($demande->total,2, '.', '')}}</td>

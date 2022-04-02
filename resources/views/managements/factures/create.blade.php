@@ -637,22 +637,22 @@
       if(type_categorie.val() == 'stock'){
         if((libelle.val() == "" || prix.val() == "") || (libelle.val() == "libelle" || parseFloat(prix.val()) == 0) || (nqte < nmin || nqte > nmax)){
           if(libelle.val() == "" || prix.val() == "")
-          message('','Vérifier les champs vides !');
+          message('warning','','Vérifier les champs vides !');
           if(libelle.val() == "libelle" || parseFloat(prix.val()) == 0)
-          message('','Les champs sont invalides !');
+          message('warning','','Les champs sont invalides !');
           if(nqte < nmin)
-          message('Quantité','La quantité est invalide !');
+          message('warning','Quantité','La quantité est invalide !');
           if(nqte > nmax)
-          message('Quantité','La quantité demandée est supérieur à la quantité de stock !');
+          message('warning','Quantité','La quantité demandée est supérieur à la quantité de stock !');
           return;
         }
         if(check(prod_id.val())){
           var q = parseFloat(quantite_stock(prod_id.val())) + parseFloat(qte.val());
           if(q < nmin || q > nmax){
             if(q < nmin)
-            message('Quantité','La quantité est invalide !');
+            message('warning','Quantité','La quantité est invalide !');
             if(q > nmax)
-            message('Quantité','La quantité en stock est insuffisante !');
+            message('warning','Quantité','La quantité en stock est insuffisante !');
             return;
           }
           changeQte(qte.val(),prod_id.val());
@@ -758,13 +758,13 @@
       if(type_categorie.val() == 'stock'){
         if((libelle.val() == "" || prix.val() == "") || (libelle.val() == "libelle" || parseFloat(prix.val()) == 0) || (nqte < nmin || nqte > nmax)){
           if(libelle.val() == "" || prix.val() == "")
-          message('','Vérifier les champs vides !');
+          message('warning','','Vérifier les champs vides !');
           if(libelle.val() == "libelle" || parseFloat(prix.val()) == 0)
-          message('','Les champs sont invalides !');
+          message('warning','','Les champs sont invalides !');
           if(nqte < nmin)
-          message('Quantité','La quantité est invalide !');
+          message('warning','Quantité','La quantité est invalide !');
           if(nqte > nmax)
-          message('Quantité','La quantité demandée est supérieur à la quantité de stock !');
+          message('warning','Quantité','La quantité demandée est supérieur à la quantité de stock !');
           return;
         }
         if(check(prod_id.val())){

@@ -14,7 +14,18 @@
         <tbody>
             @foreach($commandes as $key=>$commande)
                 <tr>
-                    <td>{{$commande->code}}</td>
+                    <td>
+                        <a href="#"
+                        id="link{{$key}}" 
+                        data-toggle="modal" 
+                        data-target="#id{{$key}}commandeModal" 
+                        style="cursor: pointer !important;">
+                        {{$commande->code}}
+                        </a>
+                        <!-- BEGIN Modal -->
+                        @include("managements.modals.commande",['commande_id' => 'id'.$key,'commande' => $commande,'key'=>$key])
+                        <!-- END Modal -->
+                    </td>
                     <td>{{$commande->date}}</td>
                     <td>{{number_format($commande->total,2, '.', '')}}</td>
                     <td>{{number_format($commande->avance,2, '.', '')}}</td>
